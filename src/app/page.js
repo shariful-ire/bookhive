@@ -1,9 +1,9 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="text-6xl text-yellow-800 flex items-center justify-center min-h-56 ">
-      Project ready 
+    <div className="flex items-center justify-center min-h-screen">
+      <h1 className="text-5xl font-bold text-primary">
+        BookHive
+      </h1>
     </div>
   );
 }
