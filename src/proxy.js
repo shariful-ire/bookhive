@@ -1,16 +1,11 @@
 import { NextResponse } from "next/server";
 
-const protectedPaths = ["/all-books/", "/my-profile"];
-
-export function middleware(request) {
+export function proxy(request) {
   const { pathname } = request.nextUrl;
 
-  const isProtected = protectedPaths.some((path) => {
-    if (path === "/all-books/") {
-      return pathname.startsWith("/all-books/") && pathname !== "/all-books";
-    }
-    return pathname.startsWith(path);
-  });
+  const isProtected =
+    (pathname.startsWith("/all-books/") && pathname !== "/all-books") ||
+    pathname.startsWith("/my-profile");
 
   if (!isProtected) return NextResponse.next();
 
