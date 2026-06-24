@@ -1,20 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getBorrowedBooks } from "@/lib/borrow";
 
+const subscribe = () => () => {};
+
 export default function MyProfilePage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
-  const [borrowedBooks, setBorrowedBooks] = useState([]);
+
+  const borrowedBooks = useSyncExternalStore(
+    subscribe,
+    () => getBorrowedBooks(),
+    () => []
+  );
 
   useEffect(() => {
-    setBorrowedBooks(getBorrowedBooks());
-  }, []);
+    if (!isPending && !session) {
+      router.push("/login");
+    }
+  }, [isPending, session, router]);
 
   if (isPending) {
     return (
@@ -24,10 +33,7 @@ export default function MyProfilePage() {
     );
   }
 
-  if (!session) {
-    router.push("/login");
-    return null;
-  }
+  if (!session) return null;
 
   const user = session.user;
 

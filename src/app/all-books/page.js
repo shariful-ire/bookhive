@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import BookCard from "@/components/BookCard";
 import booksData from "@/data/books.json";
 
@@ -9,12 +9,6 @@ const categories = ["All", "Story", "Tech", "Science"];
 export default function AllBooksPage() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 300);
-    return () => clearTimeout(timer);
-  }, []);
 
   const filtered = useMemo(() => {
     let result = [...booksData];
@@ -45,35 +39,54 @@ export default function AllBooksPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">All Books</h1>
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      {/* Page header */}
+      <div className="mb-10">
+        <h1 className="text-3xl md:text-4xl font-extrabold mb-2">All Books</h1>
+        <p className="text-base-content/50">
+          Browse our full collection of {booksData.length} books
+        </p>
+      </div>
 
       {/* Search */}
       <div className="mb-8">
-        <input
-          type="text"
-          placeholder="Search books by title or author..."
-          className="input input-bordered w-full max-w-md"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+        <div className="relative max-w-md">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 absolute left-3 top-1/2 -translate-y-1/2 text-base-content/30" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search by title or author..."
+            className="input input-bordered w-full pl-10 bg-base-200/50 focus:bg-base-200"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="flex flex-col lg:flex-row gap-8">
-        {/* Sidebar — Category filter */}
+        {/* Sidebar */}
         <aside className="lg:w-56 shrink-0">
-          <h3 className="font-semibold mb-3 text-base-content/80">
+          <h3 className="text-sm font-semibold text-base-content/40 uppercase tracking-wider mb-3">
             Categories
           </h3>
-          <ul className="menu bg-base-200 rounded-box border border-base-300 w-full">
+          <ul className="space-y-1">
             {categories.map((cat) => (
               <li key={cat}>
                 <button
-                  className={activeCategory === cat ? "active" : ""}
+                  className={`w-full flex items-center justify-between px-4 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    activeCategory === cat
+                      ? "bg-primary/15 text-primary"
+                      : "text-base-content/60 hover:bg-base-300/50 hover:text-base-content"
+                  }`}
                   onClick={() => setActiveCategory(cat)}
                 >
                   {cat}
-                  <span className="badge badge-sm badge-neutral">
+                  <span className={`text-xs px-2 py-0.5 rounded-full ${
+                    activeCategory === cat
+                      ? "bg-primary/20 text-primary"
+                      : "bg-base-300 text-base-content/40"
+                  }`}>
                     {getCategoryCount(cat)}
                   </span>
                 </button>
@@ -84,23 +97,25 @@ export default function AllBooksPage() {
 
         {/* Book grid */}
         <div className="flex-1">
-          {loading ? (
-            <div className="flex justify-center py-20">
-              <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
-          ) : filtered.length === 0 ? (
+          {filtered.length === 0 ? (
             <div className="text-center py-20 text-base-content/50">
-              <p className="text-xl">No books found</p>
-              <p className="text-sm mt-2">
-                Try a different search or category
-              </p>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-4 text-base-content/20" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <p className="text-xl font-semibold">No books found</p>
+              <p className="text-sm mt-2">Try a different search or category</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-              {filtered.map((book) => (
-                <BookCard key={book.id} book={book} />
-              ))}
-            </div>
+            <>
+              <p className="text-sm text-base-content/40 mb-6">
+                Showing {filtered.length} {filtered.length === 1 ? "book" : "books"}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+                {filtered.map((book) => (
+                  <BookCard key={book.id} book={book} />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
