@@ -1,13 +1,20 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
+import { getBorrowedBooks } from "@/lib/borrow";
 
 export default function MyProfilePage() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
+  const [borrowedBooks, setBorrowedBooks] = useState([]);
+
+  useEffect(() => {
+    setBorrowedBooks(getBorrowedBooks());
+  }, []);
 
   if (isPending) {
     return (
@@ -76,9 +83,51 @@ export default function MyProfilePage() {
             </div>
             <div className="bg-base-300/50 rounded-lg p-4">
               <p className="text-sm text-base-content/50">Books Borrowed</p>
-              <p className="font-medium">0</p>
+              <p className="font-medium text-primary text-lg">
+                {borrowedBooks.length}
+              </p>
             </div>
           </div>
+
+          {/* Recently Borrowed Books */}
+          {borrowedBooks.length > 0 && (
+            <>
+              <div className="divider"></div>
+              <div className="w-full text-left">
+                <h3 className="font-semibold mb-4">Recently Borrowed</h3>
+                <div className="space-y-3">
+                  {borrowedBooks.map((book) => (
+                    <Link
+                      key={book.id}
+                      href={`/all-books/${book.id}`}
+                      className="flex items-center gap-4 bg-base-300/50 rounded-lg p-3 hover:bg-base-300 transition-colors"
+                    >
+                      <div className="relative w-10 h-14 rounded overflow-hidden shrink-0">
+                        <Image
+                          src={book.image_url}
+                          alt={book.title}
+                          fill
+                          sizes="40px"
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-medium text-sm truncate">
+                          {book.title}
+                        </p>
+                        <p className="text-xs text-base-content/50">
+                          {book.author}
+                        </p>
+                      </div>
+                      <span className="text-xs text-base-content/40 shrink-0">
+                        {new Date(book.borrowedAt).toLocaleDateString()}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
 
           <div className="card-actions mt-6">
             <Link href="/my-profile/update" className="btn btn-primary">

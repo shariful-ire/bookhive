@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div>
       {/* Banner */}
-      <section className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-base-300 via-base-100 to-primary/10 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center bg-linear-to-br from-base-300 via-base-100 to-primary/10 overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(99,102,241,0.08),transparent_60%)]"></div>
         <div className="text-center px-4 z-10 max-w-3xl mx-auto">
           <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">
@@ -29,8 +29,8 @@ export default function Home() {
       </section>
 
       {/* Marquee */}
-      <section className="bg-primary/10 border-y border-primary/20 py-3 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap flex gap-12 text-sm text-primary font-medium">
+      <section className="bg-emerald-500/5 border-y border-emerald-500/15 py-3 overflow-hidden">
+        <div className="animate-marquee whitespace-nowrap flex gap-12 text-sm text-emerald-400 font-medium">
           <span>New Arrivals: The Great Gatsby | Clean Code | Cosmos | Sapiens</span>
           <span>Special Discount on Annual Memberships — Join Today!</span>
           <span>Over 10,000+ books available for instant borrowing</span>

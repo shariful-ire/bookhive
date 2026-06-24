@@ -1,12 +1,13 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import booksData from "@/data/books.json";
+import { borrowBook, isBookBorrowed } from "@/lib/borrow";
 
 export default function BookDetailsPage({ params }) {
   const { id } = use(params);
@@ -16,6 +17,12 @@ export default function BookDetailsPage({ params }) {
   const [borrowed, setBorrowed] = useState(false);
 
   const book = booksData.find((b) => b.id === parseInt(id));
+
+  useEffect(() => {
+    if (book) {
+      setBorrowed(isBookBorrowed(book.id));
+    }
+  }, [book]);
 
   if (isPending) {
     return (
@@ -49,6 +56,7 @@ export default function BookDetailsPage({ params }) {
 
     setBorrowing(true);
     await new Promise((resolve) => setTimeout(resolve, 800));
+    borrowBook(book);
     setBorrowed(true);
     toast.success("Book borrowed successfully!");
     setBorrowing(false);
