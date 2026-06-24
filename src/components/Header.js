@@ -2,18 +2,24 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useSession, signOut } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // TODO: Replace with real auth state in Step 3
-  const user = null;
+  const { data: session, isPending } = useSession();
+  const user = session?.user;
 
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/all-books", label: "All Books" },
     { href: "/my-profile", label: "My Profile" },
   ];
+
+  const handleLogout = async () => {
+    await signOut();
+    toast.success("Logged out successfully");
+  };
 
   return (
     <header className="navbar bg-base-200/80 backdrop-blur-md border-b border-base-300 sticky top-0 z-50">
@@ -84,12 +90,17 @@ export default function Header() {
 
       {/* Right — Auth buttons */}
       <div className="navbar-end gap-2">
-        {user ? (
+        {isPending ? (
+          <span className="loading loading-dots loading-sm"></span>
+        ) : user ? (
           <>
             <span className="text-sm text-base-content/70 hidden sm:inline">
               {user.name}
             </span>
-            <button className="btn btn-outline btn-error btn-sm">
+            <button
+              onClick={handleLogout}
+              className="btn btn-outline btn-error btn-sm"
+            >
               Logout
             </button>
           </>

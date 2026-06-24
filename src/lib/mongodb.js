@@ -6,6 +6,14 @@ if (!uri) {
 }
 
 const client = new MongoClient(uri);
-const clientPromise = client.connect();
 
-export default clientPromise;
+if (!globalThis._mongoClientPromise) {
+  globalThis._mongoClientPromise = client.connect();
+}
+const clientPromise = globalThis._mongoClientPromise;
+
+export { client, clientPromise };
+
+export function getDb() {
+  return client.db();
+}

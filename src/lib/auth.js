@@ -1,13 +1,12 @@
 import { betterAuth } from "better-auth";
 import { mongodbAdapter } from "better-auth/adapters/mongodb";
 import { nextCookies } from "better-auth/next-js";
-import clientPromise from "./mongodb";
+import { client } from "./mongodb";
+
+const db = client.db();
 
 export const auth = betterAuth({
-  database: mongodbAdapter(
-    clientPromise.then((client) => client.db()),
-    { transaction: false }
-  ),
+  database: mongodbAdapter(db, { transaction: false }),
   emailAndPassword: {
     enabled: true,
   },
