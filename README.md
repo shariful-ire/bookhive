@@ -1,204 +1,100 @@
-# 📚 Book Borrowing Platform
+# BookHive - Online Book Borrowing Platform
 
-A modern Book Borrowing Platform built with **Next.js**, **HeroUI**, **DaisyUI**, **Tailwind CSS**, **Better Auth**, and **MongoDB**.
+A modern online book borrowing platform built with Next.js, Tailwind CSS, DaisyUI, and BetterAuth. Browse, search, and borrow books from a curated collection.
 
----
+## Live URL
 
-## 🚀 Tech Stack
+[https://bookhive.vercel.app](https://bookhive.vercel.app)
 
-* Next.js
-* React
-* Tailwind CSS
-* DaisyUI
-* HeroUI
-* Better Auth
-* MongoDB
+## Key Features
 
----
+- Email/Password and Google OAuth authentication via BetterAuth
+- Browse 12+ books with search by title/author and category filter (Story, Tech, Science)
+- Book detail pages with borrow functionality (protected routes)
+- User profile with update capability
+- Fully responsive dark theme UI with DaisyUI
+- Swiper.js carousels for trending and recommended books
+- Toast notifications for all user actions
+- Middleware-based route protection
 
-# 📦 Installation Guide
+## Tech Stack
 
-## 1. Clone the Repository
+- **Framework:** Next.js 16 (App Router)
+- **Styling:** Tailwind CSS 4 + DaisyUI 5
+- **Authentication:** BetterAuth (Email/Password + Google OAuth)
+- **Database:** MongoDB Atlas
+- **Carousels:** Swiper.js
+- **Notifications:** React Hot Toast
 
-```bash
-git clone <repository-url>
-cd book-borrowing-platform
+## NPM Packages Used
+
+| Package | Purpose |
+|---------|---------|
+| `next` | React framework with App Router |
+| `react` / `react-dom` | UI library |
+| `tailwindcss` | Utility-first CSS framework |
+| `daisyui` | Tailwind CSS component library |
+| `better-auth` | Authentication framework |
+| `mongodb` | MongoDB Node.js driver |
+| `swiper` | Touch-friendly carousels |
+| `react-hot-toast` | Toast notifications |
+
+## Setup Instructions
+
+1. **Clone the repository**
+   ```bash
+   git clone <repo-url>
+   cd bookhive
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Configure environment variables**
+   Create a `.env.local` file:
+   ```env
+   DATABASE_URL=mongodb+srv://<user>:<password>@cluster.mongodb.net/bookhive
+   BETTER_AUTH_SECRET=<generate-with-openssl-rand-base64-32>
+   BETTER_AUTH_URL=http://localhost:3000
+   NEXT_PUBLIC_APP_URL=http://localhost:3000
+   GOOGLE_CLIENT_ID=<your-google-client-id>
+   GOOGLE_CLIENT_SECRET=<your-google-client-secret>
+   ```
+
+4. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+5. **Open in browser**
+   Visit [http://localhost:3000](http://localhost:3000)
+
+## Project Structure
+
 ```
-
----
-
-## 2. Install Dependencies
-
-```bash
-npm install
+src/
+├── app/
+│   ├── api/auth/[...all]/   # BetterAuth API route
+│   ├── api/books/           # Books API (GET with search/filter)
+│   ├── api/books/[id]/      # Single book API
+│   ├── all-books/           # All books page with search and filter
+│   ├── all-books/[id]/      # Book details (protected)
+│   ├── login/               # Login page
+│   ├── register/            # Register page
+│   ├── my-profile/          # User profile (protected)
+│   └── my-profile/update/   # Update profile (protected)
+├── components/
+│   ├── Header.js            # Responsive navbar with auth state
+│   ├── Footer.js            # Footer with social links
+│   ├── BookCard.js          # Reusable book card component
+│   └── SwiperCarousel.js    # Swiper carousel wrapper
+├── lib/
+│   ├── auth.js              # BetterAuth server config
+│   ├── auth-client.js       # BetterAuth client hooks
+│   └── mongodb.js           # MongoDB connection singleton
+├── data/
+│   └── books.json           # 12 book entries
+└── middleware.js             # Route protection middleware
 ```
-
----
-
-## 3. Run Development Server
-
-```bash
-npm run dev
-```
-
-Open:
-
-```text
-http://localhost:3000
-```
-
----
-
-# ⚡ Create a Next.js Project
-
-```bash
-npx create-next-app@latest
-```
-
-or
-
-```bash
-npx create-next-app@latest . --js
-```
-
----
-
-# 🎨 Tailwind CSS Setup
-
-Install Tailwind CSS:
-
-```bash
-npm install tailwindcss @tailwindcss/postcss postcss
-```
-
-Configure Tailwind and import it into your project.
-
----
-
-# 🌼 DaisyUI Setup
-
-Install DaisyUI:
-
-```bash
-npm install daisyui
-```
-
-Add DaisyUI plugin to Tailwind configuration.
-
----
-
-# 🎯 HeroUI Setup
-
-Install HeroUI:
-
-```bash
-npm install @heroui/react framer-motion
-```
-
-Configure HeroUI provider in your application.
-
----
-
-# 🔐 Better Auth Setup
-
-Install Better Auth:
-
-```bash
-npm install better-auth
-```
-
-Create:
-
-```text
-lib/auth.js
-lib/auth-client.js
-```
-
-Configure:
-
-* Email/Password Authentication
-* Session Management
-* OAuth Providers (Google, GitHub, etc.)
-
----
-
-# 🍃 MongoDB Installation & Setup
-
-## Option 1: MongoDB Atlas (Recommended)
-
-1. Create a MongoDB Atlas account.
-2. Create a Cluster.
-3. Create a Database User.
-4. Allow Network Access.
-5. Copy Connection String.
-
-Example:
-
-```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/book_platform
-```
-
----
-
----
-
-# 🔗 MongoDB Connection
-
-Create:
-
-```text
-lib/mongodb.js
-```
-
-Example:
-
-```javascript
-import { MongoClient } from "mongodb";
-
-const client = new MongoClient(process.env.MONGODB_URI);
-
-export default client;
-```
-
----
-
-# 🔑 Environment Variables
-
-Create:
-
-```text
-.env.local
-```
-
-Example:
-
-```env
-MONGODB_URI=
-BETTER_AUTH_SECRET=
-BETTER_AUTH_URL=http://localhost:3000
-
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-```
-
----
-
-# ▶️ Start Application
-
-```bash
-npm run dev
-```
-Production Build:
-
-```bash
-npm run build
-npm start
-```
-
-
-
-# 👨‍💻 Developer
-
-Book Borrowing Platform Project
-
-Built with ❤️ using Next.js, MongoDB, Better Auth, HeroUI, DaisyUI, and Tailwind CSS.
