@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "title": "The Great Gatsby",
+    "author": "F. Scott Fitzgerald",
+    "description": "A story of the mysteriously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan, set in the Jazz Age on Long Island. A classic tale of wealth, class, and the American Dream.",
+    "category": "Story",
+    "available_quantity": 5,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1490528560i/4671.jpg"
+  },
+  {
+    "id": 2,
+    "title": "To Kill a Mockingbird",
+    "author": "Harper Lee",
+    "description": "The unforgettable novel of a childhood in a sleepy Southern town and the crisis of conscience that rocked it. Through the young eyes of Scout and Jem Finch, the story explores racial injustice and moral growth.",
+    "category": "Story",
+    "available_quantity": 3,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1553383690i/2657.jpg"
+  },
+  {
+    "id": 3,
+    "title": "1984",
+    "author": "George Orwell",
+    "description": "A dystopian masterpiece set in a totalitarian society where Big Brother watches every move. Winston Smith struggles against the oppressive regime in this chilling vision of the future.",
+    "category": "Story",
+    "available_quantity": 7,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1657781256i/61439040.jpg"
+  },
+  {
+    "id": 4,
+    "title": "The Hobbit",
+    "author": "J.R.R. Tolkien",
+    "description": "Bilbo Baggins is a hobbit who enjoys a comfortable life until the wizard Gandalf and a company of dwarves whisk him away on a dangerous adventure to reclaim their treasure from a dragon.",
+    "category": "Story",
+    "available_quantity": 4,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1546071216i/5907.jpg"
+  },
+  {
+    "id": 5,
+    "title": "Clean Code",
+    "author": "Robert C. Martin",
+    "description": "A handbook of agile software craftsmanship. Learn the principles, patterns, and practices of writing clean code that is easy to read, maintain, and extend.",
+    "category": "Tech",
+    "available_quantity": 6,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1436202607i/3735293.jpg"
+  },
+  {
+    "id": 6,
+    "title": "The Pragmatic Programmer",
+    "author": "Andrew Hunt & David Thomas",
+    "description": "From journeyman to master — this classic guide to software development covers everything from personal responsibility and career development to architectural techniques.",
+    "category": "Tech",
+    "available_quantity": 4,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1401432508i/4099.jpg"
+  },
+  {
+    "id": 7,
+    "title": "Introduction to Algorithms",
+    "author": "Thomas H. Cormen",
+    "description": "The comprehensive guide to algorithms, widely used as a textbook in universities. Covers data structures, graph algorithms, dynamic programming, and more.",
+    "category": "Tech",
+    "available_quantity": 2,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1387741681i/108986.jpg"
+  },
+  {
+    "id": 8,
+    "title": "Design Patterns",
+    "author": "Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides",
+    "description": "The Gang of Four classic that describes 23 design patterns for object-oriented software development. An essential reference for every software engineer.",
+    "category": "Tech",
+    "available_quantity": 3,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1348027904i/85009.jpg"
+  },
+  {
+    "id": 9,
+    "title": "A Brief History of Time",
+    "author": "Stephen Hawking",
+    "description": "From the Big Bang to black holes, Stephen Hawking explores the mysteries of the universe in this landmark science book, making complex concepts accessible to everyone.",
+    "category": "Science",
+    "available_quantity": 5,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1333578746i/3869.jpg"
+  },
+  {
+    "id": 10,
+    "title": "Cosmos",
+    "author": "Carl Sagan",
+    "description": "An epic journey through the universe exploring the origins of life, galaxies, and the vast cosmos. Carl Sagan takes readers on a breathtaking tour of space and time.",
+    "category": "Science",
+    "available_quantity": 4,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1388620656i/55030.jpg"
+  },
+  {
+    "id": 11,
+    "title": "The Selfish Gene",
+    "author": "Richard Dawkins",
+    "description": "A revolutionary look at evolution from the gene's point of view. Dawkins argues that genes, not organisms, are the true units of natural selection.",
+    "category": "Science",
+    "available_quantity": 3,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1366758096i/61535.jpg"
+  },
+  {
+    "id": 12,
+    "title": "Sapiens: A Brief History of Humankind",
+    "author": "Yuval Noah Harari",
+    "description": "A groundbreaking narrative of humanity's creation and evolution, exploring how biology and history have defined us and enhanced our understanding of what it means to be human.",
+    "category": "Science",
+    "available_quantity": 6,
+    "image_url": "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1703329310i/23692271.jpg"
+  }
+]
