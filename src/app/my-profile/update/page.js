@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useSession, authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import toast from "react-hot-toast";
+import Avatar from "@/components/Avatar";
 
 export default function UpdateProfilePage() {
   const { data: session, isPending } = useSession();
@@ -14,19 +14,17 @@ export default function UpdateProfilePage() {
 
   useEffect(() => {
     if (!isPending && !session) {
-      router.push("/login");
+      router.replace("/login");
     }
   }, [isPending, session, router]);
 
-  if (isPending) {
+  if (isPending || !session) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-[60vh]">
         <span className="loading loading-spinner loading-lg text-primary"></span>
       </div>
     );
   }
-
-  if (!session) return null;
 
   const user = session.user;
 
@@ -106,17 +104,7 @@ export default function UpdateProfilePage() {
                   <p className="text-sm text-base-content/50 mb-2">
                     Current avatar:
                   </p>
-                  <div className="avatar">
-                    <div className="w-16 rounded-full overflow-hidden">
-                      <Image
-                        src={user.image}
-                        alt="Preview"
-                        width={64}
-                        height={64}
-                        className="object-cover"
-                      />
-                    </div>
-                  </div>
+                  <Avatar src={user.image} name={user.name} size={64} />
                 </div>
               )}
             </div>

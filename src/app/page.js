@@ -2,6 +2,7 @@ import Link from "next/link";
 import books from "@/data/books.json";
 import BookCard from "@/components/BookCard";
 import SwiperCarousel from "@/components/SwiperCarousel";
+import { HeroButtons, BottomCTA } from "@/components/AuthCTA";
 
 export default function Home() {
   const featuredBooks = books.slice(0, 4);
@@ -30,17 +31,8 @@ export default function Home() {
             Explore thousands of books. Borrow instantly. Your personal library
             awaits — no late fees, no limits.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/all-books" className="btn btn-primary btn-lg shadow-lg shadow-primary/25 px-8">
-              Browse Now
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-            <Link href="/register" className="btn btn-outline btn-lg">
-              Join Free
-            </Link>
-          </div>
+
+          <HeroButtons />
 
           {/* Stats */}
           <div className="flex justify-center gap-8 sm:gap-16 mt-16">
@@ -63,16 +55,27 @@ export default function Home() {
       </section>
 
       {/* Marquee */}
-      <section className="bg-emerald-500/5 border-y border-emerald-500/10 py-3 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap flex gap-16 text-sm text-emerald-400/80 font-medium">
-          <span>New Arrivals: The Great Gatsby | Clean Code | Cosmos | Sapiens</span>
-          <span>Special Discount on Annual Memberships — Join Today!</span>
-          <span>Over 10,000+ books available for instant borrowing</span>
-          <span>New Arrivals: The Great Gatsby | Clean Code | Cosmos | Sapiens</span>
-          <span>Special Discount on Annual Memberships — Join Today!</span>
-          <span>Over 10,000+ books available for instant borrowing</span>
-        </div>
-      </section>
+      {(() => {
+        const newArrivals = books.slice(0, 5).map((b) => b.title).join(" | ");
+        const marqueeContent = (
+          <>
+            <span>📚 New Arrivals: {newArrivals}</span>
+            <span className="text-primary">★</span>
+            <span>🎉 Special Discount on Annual Memberships — Join Today!</span>
+            <span className="text-primary">★</span>
+            <span>📖 Over 10,000+ books available for instant borrowing</span>
+            <span className="text-primary">★</span>
+          </>
+        );
+        return (
+          <section className="bg-emerald-500/5 border-y border-emerald-500/10 py-3 overflow-hidden">
+            <div className="animate-marquee whitespace-nowrap flex gap-12 text-sm text-emerald-400/80 font-medium">
+              {marqueeContent}
+              {marqueeContent}
+            </div>
+          </section>
+        );
+      })()}
 
       {/* Featured Books */}
       <section className="max-w-7xl mx-auto px-4 py-20">
@@ -98,7 +101,7 @@ export default function Home() {
       </div>
 
       {/* Trending / Most Borrowed */}
-      <section className="py-20">
+      <section className="py-20 bg-section-alt">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex items-center gap-4 mb-2">
             <div className="h-px flex-1 bg-linear-to-r from-transparent to-red-500/10" />
@@ -132,21 +135,8 @@ export default function Home() {
         <SwiperCarousel books={scienceBooks} />
       </section>
 
-      {/* CTA Section */}
-      <section className="bg-base-200/50 border-y border-base-300">
-        <div className="max-w-4xl mx-auto px-4 py-20 text-center">
-          <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
-            Ready to Start Reading?
-          </h2>
-          <p className="text-base-content/50 mb-8 max-w-lg mx-auto">
-            Join thousands of readers who borrow books daily. Create your free
-            account and start exploring.
-          </p>
-          <Link href="/register" className="btn btn-primary btn-lg shadow-lg shadow-primary/25">
-            Create Free Account
-          </Link>
-        </div>
-      </section>
+      {/* CTA — only for logged-out users */}
+      <BottomCTA />
     </div>
   );
 }

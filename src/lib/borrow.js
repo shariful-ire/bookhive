@@ -26,6 +26,13 @@ export function borrowBook(book) {
   return updated;
 }
 
+export function returnBook(bookId) {
+  const borrowed = getBorrowedBooks();
+  const updated = borrowed.filter((b) => b.id !== bookId);
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  return updated;
+}
+
 export function isBookBorrowed(bookId) {
   return getBorrowedBooks().some((b) => b.id === bookId);
 }

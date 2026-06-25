@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useState, useEffect, useSyncExternalStore } from "react";
+import { use, useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
@@ -8,8 +8,6 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import booksData from "@/data/books.json";
 import { borrowBook, isBookBorrowed } from "@/lib/borrow";
-
-const subscribe = () => () => {};
 
 export default function BookDetailsPage({ params }) {
   const { id } = use(params);
@@ -20,29 +18,19 @@ export default function BookDetailsPage({ params }) {
 
   const book = booksData.find((b) => b.id === parseInt(id));
 
-  const wasBorrowed = useSyncExternalStore(
-    subscribe,
-    () => (book ? isBookBorrowed(book.id) : false),
-    () => false
-  );
-
-  const borrowed = justBorrowed || wasBorrowed;
-
   useEffect(() => {
     if (!isPending && !session) {
-      router.push("/login");
+      router.replace("/login");
     }
   }, [isPending, session, router]);
 
-  if (isPending) {
+  if (isPending || !session) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
+      <div className="flex justify-center items-center min-h-[60vh]">
         <span className="loading loading-spinner loading-lg text-primary"></span>
       </div>
     );
   }
-
-  if (!session) return null;
 
   if (!book) {
     return (
@@ -55,6 +43,7 @@ export default function BookDetailsPage({ params }) {
     );
   }
 
+  const borrowed = justBorrowed || isBookBorrowed(book.id);
   const availableQty = borrowed
     ? book.available_quantity - 1
     : book.available_quantity;
@@ -78,7 +67,6 @@ export default function BookDetailsPage({ params }) {
       </Link>
 
       <div className="flex flex-col lg:flex-row gap-12">
-        {/* Book Cover */}
         <div className="w-full lg:w-[380px] shrink-0">
           <div className="relative aspect-[2/3] rounded-2xl overflow-hidden shadow-2xl shadow-black/30 border border-white/5">
             <Image
@@ -93,7 +81,6 @@ export default function BookDetailsPage({ params }) {
           </div>
         </div>
 
-        {/* Book Details */}
         <div className="flex-1 flex flex-col">
           <div className="flex flex-wrap gap-2 mb-4">
             <span className="badge badge-primary">{book.category}</span>

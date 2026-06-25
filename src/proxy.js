@@ -9,11 +9,14 @@ export function proxy(request) {
 
   if (!isProtected) return NextResponse.next();
 
-  const sessionCookie =
-    request.cookies.get("better-auth.session_token") ||
-    request.cookies.get("__Secure-better-auth.session_token");
+  const cookies = request.cookies;
+  const hasSession =
+    cookies.get("better-auth.session_token") ||
+    cookies.get("better-auth-session_token") ||
+    cookies.get("__Secure-better-auth.session_token") ||
+    cookies.get("better-auth.session_token.0");
 
-  if (!sessionCookie) {
+  if (!hasSession) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(loginUrl);

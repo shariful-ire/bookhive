@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-base-200 border-t border-base-300 mt-auto">
+    <footer className="bg-footer-bg border-t border-footer-border mt-auto">
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           {/* Brand */}
@@ -50,7 +50,7 @@ export default function Footer() {
               Connect With Us
             </h3>
             <p className="text-sm text-base-content/50 mb-4">
-              healthnote.live@gmail.com
+              shariful.ire@gmail.com
             </p>
             <div className="flex gap-2">
               {/* GitHub */}
