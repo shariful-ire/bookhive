@@ -12,6 +12,8 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
 
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
   useEffect(() => {
     const error = searchParams.get("error");
     if (error === "account_not_linked") {
@@ -41,7 +43,7 @@ export default function LoginPage() {
       {
         onSuccess: () => {
           toast.success("Logged in successfully!");
-          router.push("/");
+          router.push(callbackUrl);
         },
         onError: (ctx) => {
           toast.error(ctx.error.message || "Login failed");
@@ -57,7 +59,7 @@ export default function LoginPage() {
     await signIn.social(
       {
         provider: "google",
-        callbackURL: "/",
+        callbackURL: callbackUrl,
         errorCallbackURL: "/login?error=account_not_linked",
       },
       {

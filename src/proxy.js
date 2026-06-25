@@ -4,7 +4,9 @@ export function proxy(request) {
   const { pathname } = request.nextUrl;
 
   const isProtected =
-    (pathname.startsWith("/all-books/") && pathname !== "/all-books") ||
+    (pathname.startsWith("/all-books/") &&
+      pathname !== "/all-books" &&
+      pathname !== "/all-books/") ||
     pathname.startsWith("/my-profile");
 
   if (!isProtected) return NextResponse.next();

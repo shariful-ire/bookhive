@@ -5,11 +5,12 @@ if (!uri) {
   throw new Error("DATABASE_URL environment variable is not set");
 }
 
-const client = new MongoClient(uri);
-
-if (!globalThis._mongoClientPromise) {
-  globalThis._mongoClientPromise = client.connect();
+if (!globalThis._mongoClient) {
+  globalThis._mongoClient = new MongoClient(uri);
+  globalThis._mongoClientPromise = globalThis._mongoClient.connect();
 }
+
+const client = globalThis._mongoClient;
 const clientPromise = globalThis._mongoClientPromise;
 
 export { client, clientPromise };
