@@ -7,6 +7,13 @@ const db = client.db();
 
 export const auth = betterAuth({
   database: mongodbAdapter(db, { transaction: false }),
+  account: {
+    accountLinking: {
+      enabled: true,
+      trustedProviders: ["google"],
+      requireLocalEmailVerified: false,
+    },
+  },
   emailAndPassword: {
     enabled: true,
   },

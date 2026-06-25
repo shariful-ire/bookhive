@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSession } from "@/lib/auth-client";
 
 export function HeroButtons() {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -14,7 +14,7 @@ export function HeroButtons() {
           <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
         </svg>
       </Link>
-      {!session && (
+      {!isPending && !session && (
         <Link href="/register" className="btn btn-outline btn-lg">
           Join Free
         </Link>
@@ -24,9 +24,9 @@ export function HeroButtons() {
 }
 
 export function BottomCTA() {
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
 
-  if (session) return null;
+  if (isPending || session) return null;
 
   return (
     <section className="bg-section-alt border-y border-white/5">

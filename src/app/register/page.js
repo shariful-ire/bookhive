@@ -49,10 +49,18 @@ export default function RegisterPage() {
   }
 
   async function handleGoogleSignUp() {
-    await signIn.social({
-      provider: "google",
-      callbackURL: "/",
-    });
+    await signIn.social(
+      {
+        provider: "google",
+        callbackURL: "/",
+        errorCallbackURL: "/login?error=account_not_linked",
+      },
+      {
+        onError: () => {
+          toast.error("Google sign-up failed. Please try again.");
+        },
+      }
+    );
   }
 
   return (
